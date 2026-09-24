@@ -1,0 +1,17 @@
+# Geheimnisse – niemals hochladen
+.env
+.env.*
+*.pem
+*.key
+*.p12
+secrets*
+credentials*
+
+# Systemdateien & Programmordner
+.DS_Store
+Thumbs.db
+node_modules/
+.netlify/
+
+# Arbeitsordner von Claude (Fortschritt, Zwischenstände)
+.superpowers/

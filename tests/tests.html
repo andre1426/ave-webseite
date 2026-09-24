@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>AVE Tests</title>
+<style>body{font-family:system-ui,sans-serif;padding:20px}.pass{color:#137333}.fail{color:#b00020;font-weight:700}</style>
+<script>window.AVE_NO_AUTOINIT = true;</script>
+<script src="../ave-webseite/js/main.js"></script>
+<script src="../ave-webseite/js/stellen.js"></script>
+<script src="../ave-webseite/js/bewerbung.js"></script>
+</head>
+<body>
+<h1>AVE Tests</h1>
+<p id="summary">läuft …</p>
+<ol id="results"></ol>
+<div id="fixture" hidden></div>
+<script src="harness.js"></script>
+<script src="tests-main.js"></script>
+<script src="tests-bewerbung.js"></script>
+<script>report();</script>
+</body>
+</html>
