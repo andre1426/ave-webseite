@@ -187,6 +187,7 @@ address { font-style: normal; }
 .chipnav a:hover { border-color: var(--gold); }
 .service { display: grid; gap: 24px; padding: 40px 0; border-bottom: 1px solid var(--line); }
 .service:last-child { border-bottom: 0; }
+.service { scroll-margin-top: 64px; } /* Platz für die klebende Sprungleiste */
 .service h2 { font-size: clamp(1.25rem, 3vw, 1.6rem); }
 .service .icon { margin-bottom: 12px; }
 @media (min-width: 900px) {
