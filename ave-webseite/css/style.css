@@ -25,7 +25,7 @@
   --muted: #5B6570;
   --muted-dark: #B9BEC6;
   --line: #E3E5E8;
-  --field: #C5CAD1;
+  --field: #868E98;
   --white: #FFFFFF;
   --grey: #F6F7F8;
   --error: #B42318;
@@ -47,7 +47,8 @@ body.nav-open { overflow: hidden; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--gold-text); }
 a:hover { color: var(--ink); }
-:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+:focus-visible { outline: 3px solid var(--gold-text); outline-offset: 2px; }
+.dark :focus-visible { outline-color: var(--gold); }
 h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.15; margin: 0 0 .6em; }
 h1, h2, h3 { text-transform: uppercase; letter-spacing: .01em; overflow-wrap: break-word; hyphens: manual; }
 h1 { font-weight: 800; font-size: clamp(1.5rem, 7.2vw, 3.4rem); }
@@ -185,7 +186,7 @@ address { font-style: normal; }
 .chipnav { position: sticky; top: var(--header-h); z-index: 50; background: var(--white); border-bottom: 1px solid var(--line); }
 .chipnav ul { display: flex; gap: 8px; overflow-x: auto; list-style: none; max-width: var(--container); margin: 0 auto; padding: 12px var(--gutter); scrollbar-width: none; }
 .chipnav ul::-webkit-scrollbar { display: none; }
-.chipnav a { display: inline-block; white-space: nowrap; padding: 8px 14px; border: 1.5px solid var(--line); font-size: .85rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+.chipnav a { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; padding: 8px 14px; border: 1.5px solid var(--line); font-size: .85rem; font-weight: 600; color: var(--ink); text-decoration: none; }
 .chipnav a:hover { border-color: var(--gold); }
 .service { display: grid; gap: 24px; padding: 40px 0; border-bottom: 1px solid var(--line); }
 .service:last-child { border-bottom: 0; }
@@ -237,7 +238,7 @@ body.nav-open .call-fab { display: none; }
 .req { color: var(--error); }
 .field input:not([type="checkbox"]), .field select, .field textarea { width: 100%; min-height: 48px; padding: 12px 14px; font: inherit; color: var(--ink); background: var(--white); border: 1.5px solid var(--field); border-radius: 0; }
 .field textarea { min-height: 140px; resize: vertical; }
-.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 163, 90, .35); }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold-text); box-shadow: 0 0 0 3px rgba(201, 163, 90, .35); }
 .field [aria-invalid="true"] { border-color: var(--error); }
 .field-error { margin: 6px 0 0; font-size: .875rem; font-weight: 500; color: var(--error); }
 .hint { margin: 6px 0 0; font-size: .875rem; color: var(--muted); }

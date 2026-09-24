@@ -107,6 +107,40 @@ def check_manifest(errors):
         errors.append("img/apple-touch-icon.png fehlt oder ist nicht 180x180")
 
 
+def contrast(hex_a, hex_b):
+    """Kontrastverhältnis nach WCAG zwischen zwei Farben (#RRGGBB)."""
+    def lum(h):
+        c = [int(h.lstrip("#")[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+        c = [x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4 for x in c]
+        return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+    a, b = lum(hex_a), lum(hex_b)
+    return (max(a, b) + 0.05) / (min(a, b) + 0.05)
+
+
+def check_redirects(errors):
+    """Weiterleitungen wie in der Spec: einfache 301, ohne Force-Flag „!“ (Schleifengefahr)."""
+    path = ROOT / "_redirects"
+    for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        parts = line.split()
+        if parts and not line.startswith("#") and parts[-1] != "301":
+            errors.append(f"_redirects:{n}: Status {parts[-1]!r} statt 301")
+
+
+def check_contrast(errors):
+    """Nicht-Text-Kontrast ≥ 3:1 (WCAG 1.4.11) für Feldrahmen und Fokusring auf Weiß."""
+    css = (ROOT / "css" / "style.css").read_text(encoding="utf-8")
+    tokens = dict(re.findall(r"--([\w-]+):\s*(#[0-9A-Fa-f]{6})", css))
+    white = tokens["white"]
+    if contrast(tokens["field"], white) < 3:
+        errors.append(f"style.css: --field {tokens['field']} hat auf Weiß nur {contrast(tokens['field'], white):.2f}:1")
+    m = re.search(r"^:focus-visible \{ outline: 3px solid var\(--([\w-]+)\)", css, re.M)
+    if not m or contrast(tokens[m.group(1)], white) < 3:
+        errors.append("style.css: Fokusring auf Weiß unter 3:1")
+    m = re.search(r"\.field select:focus, \.field textarea:focus \{ outline: none; border-color: var\(--([\w-]+)\)", css)
+    if not m or contrast(tokens[m.group(1)], white) < 3:
+        errors.append("style.css: Fokus-Rahmen der Formularfelder auf Weiß unter 3:1")
+
+
 def main():
     errors, warnings, parsed = [], [], {}
     only = [p for p in PAGES if (ROOT / p).exists()] if "--partial" in sys.argv else PAGES
@@ -163,6 +197,8 @@ def main():
                 errors.append(f"{name}: Anker {link} fehlt im Ziel")
 
     check_manifest(errors)
+    check_redirects(errors)
+    check_contrast(errors)
 
     css = ROOT / "css" / "style.css"
     if css.exists():
