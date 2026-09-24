@@ -153,3 +153,20 @@ test("initMap: lädt iframe erst nach Klick", function () {
   ok(fr, "kein iframe nach Klick"); eq(fr.getAttribute("src"), "about:blank");
   ok(fr.title.indexOf("Google Maps") === 0, "iframe ohne Titel");
 });
+
+// --- Nachbesserungen aus der Prüfung ---
+test("preselectService: beschädigter Parameter wirft keinen Fehler", function () {
+  html(SEL); var s = fixture.querySelector("select");
+  eq(AVE.preselectService(s, "?leistung=%"), false); eq(s.value, "");
+});
+test("initMap: Fokus liegt nach dem Laden auf der Karte", function () {
+  var box = document.createElement("div");
+  box.innerHTML = '<div class="map" data-map-src="about:blank"><div class="map-consent"><button type="button" data-map-load>Karte laden</button></div></div>';
+  document.body.appendChild(box);
+  try {
+    AVE.initMap();
+    var btn = box.querySelector("[data-map-load]");
+    btn.focus(); btn.click();
+    eq(document.activeElement, box.querySelector("iframe"), "Fokus nicht auf der Karte");
+  } finally { box.remove(); }
+});

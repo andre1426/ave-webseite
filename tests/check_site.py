@@ -141,6 +141,15 @@ def check_contrast(errors):
         errors.append("style.css: Fokus-Rahmen der Formularfelder auf Weiß unter 3:1")
 
 
+def check_jobs_generic(errors):
+    """Stellentitel stehen nur in js/stellen.js – nicht fest in jobs.html (sonst veraltet)."""
+    titles = re.findall(r'titel:\s*"([^"]+)"', (ROOT / "js" / "stellen.js").read_text(encoding="utf-8"))
+    jobs = (ROOT / "jobs.html").read_text(encoding="utf-8")
+    for t in titles:
+        if t in jobs:
+            errors.append(f"jobs.html: Stellentitel „{t}“ steht fest im HTML statt nur in stellen.js")
+
+
 def main():
     errors, warnings, parsed = [], [], {}
     only = [p for p in PAGES if (ROOT / p).exists()] if "--partial" in sys.argv else PAGES
@@ -199,6 +208,7 @@ def main():
     check_manifest(errors)
     check_redirects(errors)
     check_contrast(errors)
+    check_jobs_generic(errors)
 
     css = ROOT / "css" / "style.css"
     if css.exists():

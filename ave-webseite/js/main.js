@@ -19,6 +19,7 @@
   };
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   AVE.MAX_FILE_BYTES = 8 * 1024 * 1024;
+  AVE.now = function () { return Date.now(); };
   AVE.FILE_EXT = ["pdf", "doc", "docx", "jpg", "jpeg", "png"];
 
   /* ---------- Prüfregeln ---------- */
@@ -140,7 +141,8 @@
   AVE.preselectService = function (select, search) {
     var match = /[?&]leistung=([^&]*)/.exec(search || "");
     if (!match) return false;
-    var slug = decodeURIComponent(match[1]);
+    var slug;
+    try { slug = decodeURIComponent(match[1]); } catch (e) { return false; }
     for (var i = 0; i < select.options.length; i++) {
       if (select.options[i].getAttribute("data-slug") === slug) {
         select.selectedIndex = i;
@@ -186,6 +188,7 @@
         frame.setAttribute("allowfullscreen", "");
         box.innerHTML = "";
         box.appendChild(frame);
+        frame.focus();
       });
     });
   };

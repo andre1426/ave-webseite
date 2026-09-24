@@ -55,9 +55,12 @@
     var next = form.querySelector("[data-next]");
     var submit = form.querySelector("[type=submit]");
     var current = 0;
+    var lastChange = 0;
+    var GUARD_MS = 400; // Doppelklick auf „Weiter“ soll nicht sofort absenden
 
     function show(i, focus) {
       current = Math.max(0, Math.min(i, steps.length - 1));
+      lastChange = AVE.now();
       steps.forEach(function (s, n) { s.classList.toggle("is-active", n === current); });
       if (bar) bar.style.width = ((current + 1) / steps.length * 100) + "%";
       if (label) label.textContent = "Schritt " + (current + 1) + " von " + steps.length;
@@ -80,6 +83,9 @@
     form.classList.add("is-enhanced");
     next.addEventListener("click", goNext);
     prev.addEventListener("click", function () { show(current - 1, true); });
+    form.addEventListener("submit", function (e) {
+      if (AVE.now() - lastChange < GUARD_MS) { e.preventDefault(); e.stopImmediatePropagation(); }
+    }, true);
     form.addEventListener("keydown", function (e) {
       var t = e.target;
       if (e.key !== "Enter" || current === steps.length - 1) return;

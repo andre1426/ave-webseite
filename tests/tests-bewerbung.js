@@ -97,3 +97,30 @@ test("initWizard: aveShowTarget springt zum Schritt des Fehlers", function () {
   t.form.aveShowTarget(document.getElementById("w3"));
   eq(t.w.current(), 2);
 });
+
+// --- Nachbesserung: Doppelklick direkt nach Schrittwechsel ---
+function submitEv(form) { var ev = new Event("submit", { cancelable: true }); form.dispatchEvent(ev); return ev; }
+test("initWizard: Absenden direkt nach Schrittwechsel wird ignoriert", function () {
+  var t = 1000, origNow = AVE.now; AVE.now = function () { return t; };
+  try {
+    var w = wiz(); AVE.initForm(w.form);
+    document.getElementById("w1").value = "ok";
+    w.form.querySelector("[data-next]").click(); w.form.querySelector("[data-next]").click();
+    eq(w.w.current(), 2);
+    t += 100;
+    var ev = submitEv(w.form);
+    eq(ev.defaultPrevented, true, "Absenden nicht blockiert");
+    eq(w.form.querySelectorAll(".field-error").length, 0, "Fehler sofort angezeigt");
+  } finally { AVE.now = origNow; }
+});
+test("initWizard: Absenden nach kurzer Pause wird normal geprüft", function () {
+  var t = 1000, origNow = AVE.now; AVE.now = function () { return t; };
+  try {
+    var w = wiz(); AVE.initForm(w.form);
+    document.getElementById("w1").value = "ok";
+    w.w.go(2);
+    t += 1000;
+    submitEv(w.form);
+    eq(document.getElementById("w3").getAttribute("aria-invalid"), "true", "Pflichtfeld nicht geprüft");
+  } finally { AVE.now = origNow; }
+});
