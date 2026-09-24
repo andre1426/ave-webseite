@@ -150,6 +150,17 @@ def check_jobs_generic(errors):
             errors.append(f"jobs.html: Stellentitel „{t}“ steht fest im HTML statt nur in stellen.js")
 
 
+def check_impressum(errors):
+    """Impressum vollständig: keine Platzhalter mehr, Pflichtangaben vorhanden."""
+    text = (ROOT / "impressum.html").read_text(encoding="utf-8")
+    if "[BITTE" in text or "Platzhalter" in text:
+        errors.append("impressum.html: enthält noch Platzhalter")
+    for need in ("André Filipe Dias Pires", "Amtsgericht Darmstadt", "HRB 105430", "DE366096325",
+                 "Handwerkskammer Frankfurt-Rhein-Main"):
+        if need not in text:
+            errors.append(f"impressum.html: Angabe fehlt: {need}")
+
+
 def main():
     errors, warnings, parsed = [], [], {}
     only = [p for p in PAGES if (ROOT / p).exists()] if "--partial" in sys.argv else PAGES
@@ -209,6 +220,7 @@ def main():
     check_redirects(errors)
     check_contrast(errors)
     check_jobs_generic(errors)
+    check_impressum(errors)
 
     css = ROOT / "css" / "style.css"
     if css.exists():
