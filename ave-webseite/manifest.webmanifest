@@ -1,0 +1,16 @@
+{
+  "name": "AVE Businesshygiene GmbH",
+  "short_name": "AVE",
+  "description": "Gebäudereinigung der Spitzenklasse – Frankfurt & Rhein-Main",
+  "lang": "de",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1C1F24",
+  "theme_color": "#1C1F24",
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

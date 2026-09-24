@@ -207,6 +207,7 @@ Das Vorschaubild ist eine lokale SVG-Grafik (stilisierte Karte mit goldenem Pin 
 - Performance: kein Framework, eine CSS-Datei, JS mit `defer`, Schriften vorgeladen (`preload`), Logo mit `width`/`height`, spätere Fotos mit `loading="lazy"`.
 - Barrierearmut: „Zum Inhalt springen“-Link, sichtbarer Fokusrahmen, Kontrast mindestens WCAG AA, `prefers-reduced-motion` wird beachtet, Tippflächen mindestens 44 px.
 - Keine Cookies, kein Tracking, keine externen Anfragen beim Seitenaufruf.
+- **Web-App-Manifest** (Nachtrag 24.09.2026): `manifest.webmanifest` (Name „AVE Businesshygiene GmbH“, Kurzname „AVE“, `display: standalone`, Farben `#1C1F24`), Symbole `img/icon-192.png`, `img/icon-512.png`, `img/icon-maskable-512.png`, `img/apple-touch-icon.png` (180 px). Jede Seite bindet Manifest und Apple-Touch-Icon ein. Kein Service Worker, damit nie eine veraltete Version im Zwischenspeicher hängen bleibt.
 
 ## 9. Nicht Teil dieses Auftrags
 Echte Fotos, finale Rechtstexte, Netlify- und GitHub-Einrichtung (folgt im Workshop), Mehrsprachigkeit, Blog/News, Cookie-Banner (nicht nötig), Analyse-Tools.

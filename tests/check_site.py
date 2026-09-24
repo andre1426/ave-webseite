@@ -23,6 +23,8 @@ class Page(HTMLParser):
         self.title = ""
         self.meta = {}
         self.canonical = None
+        self.manifest = None
+        self.touch_icon = None
         self.lang = None
         self._in_title = self._in_json = False
         self._buf = ""
@@ -41,6 +43,10 @@ class Page(HTMLParser):
             self.meta[a["name"]] = a.get("content", "")
         if tag == "link" and a.get("rel") == "canonical":
             self.canonical = a.get("href")
+        if tag == "link" and a.get("rel") == "manifest":
+            self.manifest = a.get("href")
+        if tag == "link" and a.get("rel") == "apple-touch-icon":
+            self.touch_icon = a.get("href")
         if tag == "script" and a.get("type") == "application/ld+json":
             self._in_json, self._buf = True, ""
         for key in ("href", "src"):
@@ -59,6 +65,46 @@ class Page(HTMLParser):
             self.title += data
         if self._in_json:
             self._buf += data
+
+
+def png_size(path):
+    """Breite und Höhe einer PNG-Datei aus dem IHDR-Block lesen."""
+    head = path.read_bytes()[:24]
+    return int.from_bytes(head[16:20], "big"), int.from_bytes(head[20:24], "big")
+
+
+def check_manifest(errors):
+    """Web-App-Manifest: Pflichtfelder für „Zum Home-Bildschirm“ als Vollbild-App."""
+    path = ROOT / "manifest.webmanifest"
+    if not path.exists():
+        errors.append("manifest.webmanifest fehlt")
+        return
+    try:
+        m = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        errors.append(f"manifest.webmanifest: ungültiges JSON ({e})")
+        return
+    for key in ("name", "short_name", "start_url", "display", "theme_color", "background_color"):
+        if not m.get(key):
+            errors.append(f"manifest.webmanifest: Feld {key} fehlt")
+    if m.get("display") != "standalone":
+        errors.append("manifest.webmanifest: display muss standalone sein")
+    sizes = set()
+    for icon in m.get("icons", []):
+        file = ROOT / icon.get("src", "")
+        if not file.exists():
+            errors.append(f"manifest.webmanifest: Symbol fehlt: {icon.get('src')}")
+            continue
+        w, h = png_size(file)
+        if f"{w}x{h}" != icon.get("sizes"):
+            errors.append(f"manifest.webmanifest: {icon['src']} ist {w}x{h}, angegeben {icon.get('sizes')}")
+        sizes.add((icon.get("sizes"), icon.get("purpose", "any")))
+    for need in (("192x192", "any"), ("512x512", "any"), ("512x512", "maskable")):
+        if need not in sizes:
+            errors.append(f"manifest.webmanifest: Symbol {need[0]} ({need[1]}) fehlt")
+    touch = ROOT / "img" / "apple-touch-icon.png"
+    if not touch.exists() or png_size(touch) != (180, 180):
+        errors.append("img/apple-touch-icon.png fehlt oder ist nicht 180x180")
 
 
 def main():
@@ -92,6 +138,10 @@ def main():
                 errors.append(f"{name}: canonical {p.canonical!r} (erwartet {want!r})")
         if TEL not in text:
             errors.append(f"{name}: Telefon-Link {TEL} fehlt")
+        if not p.manifest:
+            errors.append(f"{name}: <link rel=\"manifest\"> fehlt")
+        if not p.touch_icon:
+            errors.append(f"{name}: <link rel=\"apple-touch-icon\"> fehlt")
         for block in p.jsonld:
             try:
                 json.loads(block)
@@ -111,6 +161,8 @@ def main():
                 (warnings if "/fonts/" in str(file) else errors).append(f"{name}: Link-Ziel fehlt: {link}")
             elif frag and file.name in parsed and frag not in parsed[file.name][0].ids:
                 errors.append(f"{name}: Anker {link} fehlt im Ziel")
+
+    check_manifest(errors)
 
     css = ROOT / "css" / "style.css"
     if css.exists():
