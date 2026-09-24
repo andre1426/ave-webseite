@@ -1,0 +1,5 @@
+# Netlify-Einstellungen für die AVE-Webseite
+# Veröffentlicht wird nur der Ordner ave-webseite (kein Build-Schritt nötig).
+[build]
+  publish = "ave-webseite"
+  command = ""
