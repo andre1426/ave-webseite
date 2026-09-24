@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <rect width="1200" height="675" fill="#2A2E35"/>
+  <g fill="none" stroke="#3A3F47" stroke-width="18" stroke-linecap="round">
+    <path d="M-20 140 L1220 90"/><path d="M-20 520 L1220 600"/><path d="M300 -20 L380 700"/>
+    <path d="M840 -20 L780 700"/><path d="M-20 300 C300 270 520 350 1220 300"/>
+  </g>
+  <g fill="none" stroke="#33383F" stroke-width="8">
+    <path d="M120 -20 L180 700"/><path d="M1030 -20 L1070 700"/><path d="M-20 650 L1220 30"/>
+  </g>
+  <g transform="translate(600 170)">
+    <path d="M0 70 C-12 48 -52 14 -52 -24 A52 52 0 0 1 52 -24 C52 14 12 48 0 70Z" fill="#C9A35A"/>
+    <circle cy="-24" r="18" fill="#1C1F24"/>
+  </g>
+  <text x="600" y="300" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="32" font-weight="700" text-anchor="middle">AVE Businesshygiene GmbH</text>
+  <text x="600" y="342" fill="#B9BEC6" font-family="Arial, sans-serif" font-size="24" text-anchor="middle">Waldecker Straße 4 · 64546 Mörfelden-Walldorf</text>
+</svg>
