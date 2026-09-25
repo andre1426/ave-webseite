@@ -1,0 +1,99 @@
+<section class="page-head dark">
+  <div class="ph ph-bg" role="img" aria-label="Platzhalter: Foto Büro und Empfang">Foto: Büro und Empfang</div>
+  <div class="container">
+    <span class="goldline"></span>
+    <p class="kicker">Kontakt</p>
+    <h1>Wir sind für Sie <span class="accent">da</span></h1>
+    <p class="lead">Sie wünschen ein Angebot oder haben eine Frage? Schreiben Sie uns oder rufen Sie an – wir melden uns schnellstmöglich.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-grid">
+    <div>
+      <span class="goldline"></span>
+      <h2>Anfrage <span class="accent">senden</span></h2>
+      <form class="form" name="kontakt" method="POST" action="/danke.html" data-netlify="true" netlify-honeypot="bot-field" data-validate>
+        <input type="hidden" name="form-name" value="kontakt">
+        <p class="hp" aria-hidden="true"><label>Bitte nicht ausfüllen: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+        <fieldset class="field-group" data-required>
+          <legend>Anrede <span class="req">*</span></legend>
+          <div class="choices choices-inline">
+            <label class="choice"><input type="radio" name="anrede" value="Herr"> Herr</label>
+            <label class="choice"><input type="radio" name="anrede" value="Frau"> Frau</label>
+            <label class="choice"><input type="radio" name="anrede" value="Divers"> Divers</label>
+          </div>
+        </fieldset>
+
+        <div class="form-row">
+          <div class="field"><label for="k-vorname">Vorname</label><input id="k-vorname" name="vorname" autocomplete="given-name"></div>
+          <div class="field"><label for="k-nachname">Nachname <span class="req">*</span></label><input id="k-nachname" name="nachname" autocomplete="family-name" required></div>
+        </div>
+        <div class="field"><label for="k-firma">Firma</label><input id="k-firma" name="firma" autocomplete="organization"></div>
+        <div class="form-row">
+          <div class="field"><label for="k-telefon">Telefon</label><input id="k-telefon" name="telefon" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="k-email">E-Mail <span class="req">*</span></label><input id="k-email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="field">
+          <label for="k-leistung">Gewünschte Leistung <span class="req">*</span></label>
+          <select id="k-leistung" name="leistung" required data-preselect>
+            <option value="">Bitte wählen …</option>
+            <option value="Büro- &amp; Unterhaltsreinigung" data-slug="buero">Büro- &amp; Unterhaltsreinigung</option>
+            <option value="Glas- &amp; Rahmenreinigung" data-slug="glas">Glas- &amp; Rahmenreinigung</option>
+            <option value="Fassadenreinigung" data-slug="fassade">Fassadenreinigung</option>
+            <option value="Hausmeisterservice &amp; Grünflächenpflege" data-slug="hausmeister">Hausmeisterservice &amp; Grünflächenpflege</option>
+            <option value="Sonderreinigung &amp; Spezialverfahren" data-slug="sonder">Sonderreinigung &amp; Spezialverfahren</option>
+            <option value="EDV-Reinigung" data-slug="edv">EDV-Reinigung</option>
+            <option value="Kliniken, Arztpraxen &amp; Betreuungseinrichtungen" data-slug="klinik">Kliniken, Arztpraxen &amp; Betreuungseinrichtungen</option>
+            <option value="Bau-, Zwischen- &amp; Endreinigung" data-slug="bau">Bau-, Zwischen- &amp; Endreinigung</option>
+            <option value="Reinraum- &amp; Laborreinigung" data-slug="reinraum">Reinraum- &amp; Laborreinigung</option>
+            <option value="Solaranlagenreinigung" data-slug="solar">Solaranlagenreinigung</option>
+            <option value="Sonstiges" data-slug="sonstiges">Sonstiges</option>
+          </select>
+        </div>
+        <div class="field"><label for="k-nachricht">Ihre Nachricht <span class="req">*</span></label><textarea id="k-nachricht" name="nachricht" required></textarea></div>
+        <div class="field">
+          <label class="consent"><input id="k-datenschutz" type="checkbox" name="datenschutz" value="akzeptiert" required> <span>Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung meiner Anfrage einverstanden. <span class="req">*</span></span></label>
+        </div>
+        <div class="form-alert" role="alert" hidden></div>
+        <div><button type="submit" class="btn btn-primary">Anfrage absenden</button></div>
+        <p class="form-note"><span class="req">*</span> Pflichtfelder</p>
+      </form>
+    </div>
+
+    <aside>
+      <span class="goldline"></span>
+      <h2>So erreichen Sie <span class="accent">uns</span></h2>
+      <ul class="contact-list">
+        <li>ICON(pin)<div><strong>Adresse</strong><address>AVE Businesshygiene GmbH<br>Waldecker Straße 4<br>64546 Mörfelden-Walldorf</address></div></li>
+        <li>ICON(phone)<div><strong>Telefon</strong><a href="tel:+4961053039668">06105 30 39 66 8</a></div></li>
+        <li>ICON(mail)<div><strong>E-Mail</strong><a href="mailto:info@ave-businesshygiene.de">info@ave-businesshygiene.de</a></div></li>
+      </ul>
+      <h3>Öffnungszeiten</h3>
+      <dl class="hours">
+        <dt>Mo – Do</dt><dd>8:00 – 18:00 Uhr</dd>
+        <dt>Fr</dt><dd>8:00 – 16:00 Uhr</dd>
+        <dt>Sa – So</dt><dd>geschlossen – Termine nach Vereinbarung</dd>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section class="section section-grey">
+  <div class="container">
+    <div class="section-head">
+      <span class="goldline"></span>
+      <p class="kicker">Anfahrt</p>
+      <h2>So finden Sie <span class="accent">uns</span></h2>
+    </div>
+    <div class="map" data-map-src="https://www.google.com/maps?q=Waldecker+Stra%C3%9Fe+4,+64546+M%C3%B6rfelden-Walldorf&amp;output=embed">
+      <img src="img/karte-vorschau.svg" alt="Kartenvorschau: Waldecker Straße 4, 64546 Mörfelden-Walldorf" width="1200" height="675">
+      <div class="map-consent">
+        <p>Mit dem Laden der Karte werden Daten an Google übertragen. Mehr dazu in unserer <a href="datenschutz.html#google-maps">Datenschutzerklärung</a>.</p>
+        <div><button type="button" class="btn btn-primary" data-map-load>Karte laden</button></div>
+      </div>
+    </div>
+    <p class="mt"><a class="btn btn-outline" href="https://www.google.com/maps/dir/?api=1&amp;destination=Waldecker+Stra%C3%9Fe+4,+64546+M%C3%B6rfelden-Walldorf" target="_blank" rel="noopener">Route planen</a></p>
+  </div>
+</section>

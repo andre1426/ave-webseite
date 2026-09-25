@@ -1,0 +1,62 @@
+{
+  "index.html": {
+    "title": "Gebäudereinigung Frankfurt &amp; Rhein-Main | AVE Businesshygiene GmbH",
+    "desc": "Gebäudereinigung der Spitzenklasse: Büro-, Glas- und Fassadenreinigung vom Meisterbetrieb aus Mörfelden-Walldorf – für Frankfurt und das Rhein-Main-Gebiet.",
+    "aktiv": "HOME",
+    "extra": [
+      "jsonld.html"
+    ]
+  },
+  "ueber-uns.html": {
+    "title": "Über uns – Gebäudereinigung mit Adlerblick | AVE Businesshygiene",
+    "desc": "Lernen Sie die AVE Businesshygiene GmbH kennen: Meisterbetrieb, gegründet 2023 von André Pires – mit klaren Werten, Nachhaltigkeit und langfristigen Partnerschaften.",
+    "aktiv": "UEBER"
+  },
+  "dienstleistungen.html": {
+    "title": "Dienstleistungen: Büro-, Glas- &amp; Fassadenreinigung | AVE Businesshygiene",
+    "desc": "10 Leistungen aus einer Hand: Unterhaltsreinigung, Glas- und Fassadenreinigung, Hausmeisterservice, Sonder-, EDV-, Klinik-, Bau-, Reinraum- und Solaranlagenreinigung.",
+    "aktiv": "DIENST"
+  },
+  "qualitaetsmanagement.html": {
+    "title": "Qualitätsmanagement mit QR-Ticketsystem | AVE Businesshygiene",
+    "desc": "So sichern wir Qualität: digitales QR-Ticketsystem, individuelle Revierpläne, regelmäßige Schulungen und Kundenfeedback.",
+    "aktiv": "QM"
+  },
+  "jobs.html": {
+    "title": "Jobs in der Gebäudereinigung – Frankfurt &amp; Rhein-Main | AVE Businesshygiene",
+    "desc": "Jetzt bewerben: Jobs in der Gebäudereinigung in Teilzeit oder Vollzeit – in Frankfurt, am Flughafen und im Rhein-Main-Gebiet. Quereinsteiger willkommen!",
+    "aktiv": "JOBS",
+    "extra": [
+      "jobs-head.html"
+    ]
+  },
+  "kontakt.html": {
+    "title": "Kontakt – Angebot anfragen | AVE Businesshygiene GmbH",
+    "desc": "Kontaktieren Sie die AVE Businesshygiene GmbH: Waldecker Straße 4, 64546 Mörfelden-Walldorf · Tel. 06105 30 39 66 8 · info@ave-businesshygiene.de",
+    "aktiv": "KONTAKT",
+    "extra": [
+      "jsonld.html"
+    ]
+  },
+  "impressum.html": {
+    "title": "Impressum | AVE Businesshygiene GmbH",
+    "desc": "Impressum der AVE Businesshygiene GmbH, Mörfelden-Walldorf.",
+    "noindex": true
+  },
+  "datenschutz.html": {
+    "title": "Datenschutzerklärung | AVE Businesshygiene GmbH",
+    "desc": "Datenschutzerklärung der AVE Businesshygiene GmbH.",
+    "noindex": true
+  },
+  "danke.html": {
+    "title": "Vielen Dank | AVE Businesshygiene GmbH",
+    "desc": "Vielen Dank für Ihre Nachricht an die AVE Businesshygiene GmbH.",
+    "noindex": true
+  },
+  "404.html": {
+    "title": "Seite nicht gefunden | AVE Businesshygiene GmbH",
+    "desc": "Die gesuchte Seite wurde nicht gefunden.",
+    "noindex": true,
+    "p": "/"
+  }
+}
