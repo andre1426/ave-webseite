@@ -43,3 +43,16 @@ Debug 24.09.: Kontaktformular POST → 404. Ursache: Formular-Erkennung erst nac
 Nachbesserung M-1/M-2/M-4/M-5 umgesetzt (M-7 bereits zuvor): Tests RED 46/49 + check_site 1 Fehler → GREEN 49/49 + 0 Fehler; Jobs-Seite End-to-End geprüft (Auswahl aus stellen.js, Doppelklick ohne Fehler). Commit f18f188, noch nicht gepusht.
 Impressum ausgefüllt (Daten aus altem Impressum, im Quelltext verifiziert; Kammer + V.i.S.d.P. vom Inhaber bestätigt); EU-OS-Plattform-Link bewusst weggelassen (Plattform eingestellt). check_impressum RED 6 → GREEN. Commit a1f8aca
 Logo aus 2000px-JPG freigestellt (Swift/CoreGraphics, logo-original/logo-aufbereiten.swift): logo.png weiße Schrift 280px, logo-hell.png schwarze Schrift (og:image), Icons nur Adler. Teamfotos team.jpg (Hero) + team-mitarbeiterinnen.jpg (Karriere-Teaser) 900px. check_site 0 Fehler; 375/1280 px ohne Überlauf, keine kaputten Bilder. Commit 3465b95, nicht gepusht.
+
+## 2026-09-25 – Bewerbungen in Supabase
+
+- Tabelle `public.bewerbungen` + privater Bucket `lebenslaeufe` im Supabase-Projekt „Angebot und
+  Kalkulation“ (eu-central-1) angelegt. RLS an, keine Regeln → nur der Secret Key hat Zugriff.
+- Erst per Netlify-Funktion gebaut, dann auf Wunsch des Inhabers „alles über Supabase“ umgestellt:
+  Supabase-Funktion `bewerbung` (Quelltext `supabase/functions/bewerbung/index.ts`), die
+  `bewerbung.js` beim Absenden aufruft; danach geht das Formular normal an Netlify Forms (E-Mail).
+  Vorteil: kein geheimer Schlüssel muss irgendwo eingetragen werden.
+- Getestet per curl: Bewerbung mit PDF gespeichert, Honeypot-Spam ignoriert, fehlende Pflichtfelder → 400.
+  Getestet im Browser (lokal): echtes Formular → Eintrag in Supabase, danach normaler Versand.
+  JS-Tests 49/49. Testeinträge „TEST Probe“ und „TEST2 Browser“ können gelöscht werden.
+- Offen: Datenschutzerklärung um Supabase ergänzen; Löschfrist für Bewerbungen festlegen.

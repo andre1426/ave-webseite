@@ -107,6 +107,35 @@
     };
   };
 
+  /* Bewerbung zuerst in Supabase speichern, danach normal an Netlify senden
+     (Netlify schickt weiterhin die E-Mail). Klappt Supabase nicht, geht die
+     Bewerbung trotzdem an Netlify – es geht also nichts verloren. */
+  AVE.SUPABASE_BEWERBUNG = "https://dgnknnxwdecbchajaeiq.supabase.co/functions/v1/bewerbung";
+  AVE.SUPABASE_TIMEOUT_MS = 20000;
+
+  AVE.initSupabase = function (form) {
+    var sending = false;
+    form.addEventListener("submit", function (e) {
+      if (e.defaultPrevented || sending || !window.fetch || !window.FormData) return;
+      if (AVE.validateContainer(form).length || AVE.isOffline()) return; // main.js meldet den Fehler
+      e.preventDefault();
+      sending = true;
+      var btn = form.querySelector("[type=submit]");
+      if (btn) { btn.disabled = true; btn.textContent = "Wird gesendet …"; }
+      var ctrl = window.AbortController ? new AbortController() : null;
+      var finished = false;
+      var done = function () {
+        if (finished) return;
+        finished = true;
+        clearTimeout(timer);
+        HTMLFormElement.prototype.submit.call(form);
+      };
+      var timer = setTimeout(function () { if (ctrl) ctrl.abort(); done(); }, AVE.SUPABASE_TIMEOUT_MS);
+      window.fetch(AVE.SUPABASE_BEWERBUNG, { method: "POST", body: new FormData(form), signal: ctrl ? ctrl.signal : undefined })
+        .then(done, done);
+    });
+  };
+
   AVE.initBewerbung = function () {
     var list = window.STELLEN || [];
     var box = document.getElementById("stellen-liste");
@@ -122,6 +151,7 @@
       });
     }
     AVE.wizard = AVE.initWizard(form);
+    AVE.initSupabase(form);
   };
 
   if (!window.AVE_NO_AUTOINIT) AVE.initBewerbung();

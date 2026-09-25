@@ -23,6 +23,7 @@ Statisches HTML/CSS/JS, kein Framework, kein npm, kein Build-Schritt auf dem Ser
 | `docs/superpowers/fortschritt.md` | Arbeitsprotokoll mit allen Entscheidungen und bekannten Punkten |
 | `logo-original/` | Originallogos + `logo-aufbereiten.swift` (läuft nur auf macOS, am Handy nicht nutzbar) |
 | `netlify.toml` | Netlify-Einstellungen (veröffentlicht `ave-webseite/`) |
+| `supabase/functions/bewerbung/index.ts` | Supabase-Funktion: speichert Bewerbungen in der Datenbank (siehe unten) |
 | `LIESMICH-README.md`, `Steckbrief.md` | Workshop-Unterlagen, für die Webseite nicht nötig |
 
 ## Seiten ändern
@@ -60,6 +61,17 @@ CSS (`ave-webseite/css/style.css`) und JavaScript (`ave-webseite/js/`) werden di
 - Formulare (Kontakt, Bewerbung) laufen über Netlify Forms; Benachrichtigung per E-Mail an
   info@… ist in Netlify eingerichtet. Formular-Erkennung braucht eine echte Dateiänderung
   (ein leerer Commit reicht nicht).
+- **Bewerbungen → Supabase:** Beim Absenden schickt `ave-webseite/js/bewerbung.js` das Formular
+  zuerst an die Supabase-Funktion `bewerbung` (Projekt „Angebot und Kalkulation“, Frankfurt),
+  danach wie gewohnt an Netlify (E-Mail). Fällt Supabase aus, geht die Bewerbung trotzdem an
+  Netlify. Die Funktion speichert in die Tabelle `bewerbungen`, Lebensläufe in den privaten
+  Bucket `lebenslaeufe`. Kein Schlüssel im Repo oder in Netlify nötig – Supabase stellt ihn der
+  Funktion selbst bereit. Quelltext liegt in `supabase/functions/bewerbung/index.ts`; nach
+  Änderungen neu veröffentlichen (Supabase-Werkzeug `deploy_edge_function`, `verify_jwt: false`).
+  Neue Formularfelder brauchen eine neue Spalte in der Tabelle **und** eine Zeile in der Funktion.
+  Ansehen: Supabase → Table Editor → `bewerbungen`; Spalte `status` (neu / in Prüfung /
+  eingeladen / eingestellt / abgesagt) und `notizen` frei nutzbar. Lebensläufe: Supabase →
+  Storage → `lebenslaeufe`. Fehler: Supabase → Edge Functions → `bewerbung` → Logs.
 - Commit-Autor: „AVE Businesshygiene“ mit der GitHub-noreply-Adresse.
 
 ### „Speichere auf GitHub“
@@ -71,6 +83,8 @@ Seite in ca. 1 Minute live ist.
 
 ## Offene Punkte
 
-- `datenschutz.html` enthält noch Platzhalter – Inhalte muss der Inhaber liefern.
+- `datenschutz.html` enthält noch Platzhalter – Inhalte muss der Inhaber liefern. Dabei
+  Supabase (Speicherung der Bewerbungen, Server in Frankfurt) als Auftragsverarbeiter nennen
+  und eine Löschfrist für Bewerbungen festlegen.
 - `.superpowers/` ist ein lokaler Arbeitsordner (per `.gitignore` ausgeschlossen) und wird
   nicht gebraucht; alles Wichtige daraus liegt jetzt in `werkzeuge/` und `docs/`.
