@@ -53,6 +53,7 @@ CSS (`ave-webseite/css/style.css`) und JavaScript (`ave-webseite/js/`) werden di
   `python3 -m http.server` im Projektordner, dann `/tests/tests.html` öffnen. In einer
   Handy-/Cloud-Sitzung ohne Browser: nur `check_site.py` laufen lassen und das dem Inhaber sagen.
 - Auf 320 px, 375 px und 1280 px Breite darf nichts waagerecht überlaufen.
+- Vor jedem Push die Unteragenten **Datenschutz** und **Texter** (`.claude/agents/`) laufen lassen und ihre Funde dem Inhaber nennen.
 
 ## Veröffentlichung
 
