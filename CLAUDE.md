@@ -48,6 +48,8 @@ CSS (`ave-webseite/css/style.css`) und JavaScript (`ave-webseite/js/`) werden di
 
 ## Prüfen (vor jedem Speichern auf GitHub)
 
+- **Vor jedem Push immer die Unteragenten `datenschutz` und `texter` laufen lassen** (liegen in `.claude/agents/`) und ihre Befunde dem Inhaber nennen.
+
 - `python3 tests/check_site.py` → muss „10 Seiten geprüft, 0 Fehler“ melden (nur Python 3).
 - `tests/tests.html` (JavaScript-Tests): braucht einen Browser über
   `python3 -m http.server` im Projektordner, dann `/tests/tests.html` öffnen. In einer
